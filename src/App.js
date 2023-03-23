@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { WagmiConfig, createClient } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import './App.css'
 
-function App() {
+const client = createClient({
+  autoConnect: true,
+  connectors:[new InjectedConnector()]
+})
+ 
+console.log(client)
+ function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <WagmiConfig client={client}>
+      <div className="App">{client.config.connectors[0]?.name}</div>
+    </WagmiConfig>
     </div>
   );
 }
